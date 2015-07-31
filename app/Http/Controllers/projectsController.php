@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use View;
 
-class user_controller extends Controller
+class projectsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,6 +18,7 @@ class user_controller extends Controller
     public function index()
     {
         //
+        return View::make('test', array("name"=>"Test"));
     }
 
     /**
