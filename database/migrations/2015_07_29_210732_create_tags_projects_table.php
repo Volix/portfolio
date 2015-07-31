@@ -13,7 +13,7 @@ class CreateTagsProjectsTable extends Migration
     public function up()
     {
         //Create cross table projects with tags
-        Shema::create("projects_tags", function ($table){
+        Schema::create("projects_tags", function ($table){
                 $table->integer("project_id");
                 $table->integer("tag_id");
             });

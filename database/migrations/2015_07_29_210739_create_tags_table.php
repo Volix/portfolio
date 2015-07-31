@@ -13,7 +13,7 @@ class CreateTagsTable extends Migration
     public function up()
     {
         //Create table tags
-        Shema::create("tags", function ($table){
+        Schema::create("tags", function ($table){
             $table->increments("id");
             $table->string("name");
             $table->string("slug");

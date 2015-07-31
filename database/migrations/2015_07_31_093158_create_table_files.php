@@ -13,7 +13,7 @@ class CreateTableFiles extends Migration
     public function up()
     {
         //Create table files
-        Shema::create("files", function ($table){
+        Schema::create("files", function ($table){
             $table->increments("id");
             $table->string("extension");
             $table->float("size");

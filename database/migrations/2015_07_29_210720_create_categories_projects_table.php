@@ -13,7 +13,7 @@ class CreateCategoriesProjectsTable extends Migration
     public function up()
     {
         //Create cross table projects with categories
-        Shema::create("projects_categories", function($table){
+        Schema::create("projects_categories", function($table){
                 $table->integer("project_id");
                 $table->integer("category_id");
             });

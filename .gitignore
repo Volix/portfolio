@@ -3,3 +3,4 @@
 Homestead.yaml
 .env
 /config/database.php
+*~

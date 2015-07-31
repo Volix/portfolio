@@ -13,7 +13,7 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         //Create  table categories
-        Shema::create("categories", function($table){
+        Schema::create("categories", function($table){
                 $table->increments("id");
                 $table->string("name");
                 $table->string("slug");

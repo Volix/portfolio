@@ -13,7 +13,7 @@ class CreateTableProjectsDistinctiveImages extends Migration
     public function up()
     {
         //Create cross table projects with distinctive image
-        Shema::create("project_distinctive_images", function($table){
+        Schema::create("project_distinctive_images", function($table){
                 $table->integer("project_id")->unique();
                 $table->integer("image_id")->unique();
             });
