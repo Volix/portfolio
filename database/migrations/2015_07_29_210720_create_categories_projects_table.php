@@ -26,6 +26,7 @@ class CreateCategoriesProjectsTable extends Migration
      */
     public function down()
     {
-        //
+        //Drop cross table
+        Schema::drop("projects_categories");
     }
 }

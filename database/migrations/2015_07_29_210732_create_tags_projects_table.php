@@ -27,6 +27,6 @@ class CreateTagsProjectsTable extends Migration
     public function down()
     {
         //Drop cross table projects with tags
-        Shema::drop("projects_tags");
+        Schema::drop("projects_tags");
     }
 }

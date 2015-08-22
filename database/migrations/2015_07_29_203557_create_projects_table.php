@@ -32,6 +32,6 @@ class CreateProjectsTable extends Migration
     public function down()
     {
         //Drop table projects
-        Shema::drop('projects');
+        Schema::drop('projects');
     }
 }

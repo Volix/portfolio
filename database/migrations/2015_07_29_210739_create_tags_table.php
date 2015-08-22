@@ -28,6 +28,6 @@ class CreateTagsTable extends Migration
     public function down()
     {
         //Drop table tags
-        Shema::drop("tags");
+        Schema::drop("tags");
     }
 }
