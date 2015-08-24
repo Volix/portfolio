@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use View;
 use App\Project;
 use Input;
+use Redirect;
 use Session;
 
 class projectsController extends Controller
@@ -164,7 +165,7 @@ class projectsController extends Controller
     {
         //
 		Project::destroy($id);
-		return self::manage();
+		return	Redirect::route('projectManageList');
     }
 	
 	public function manage()

@@ -1,5 +1,5 @@
 @if (isset($errors))
-	@foreach ($errors as $error)
+	@foreach ($errors->all() as $error)
 		{{$error}}
 	@endforeach
 @endif

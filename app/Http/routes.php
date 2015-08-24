@@ -37,7 +37,7 @@ Route::group(['prefix'=>'admin'], function(){
 		
 		Route::get('destroy/{id}', ['as' => 'projectDestory', 'uses' => 'projectsController@destroy']);
 		
-		Route::get('/', 'projectsController@manage');
+		Route::get('/', ['uses' => 'projectsController@manage', 'as' => 'projectManageList']);
 			
 	});
 	
