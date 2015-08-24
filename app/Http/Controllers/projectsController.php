@@ -163,7 +163,7 @@ class projectsController extends Controller
     public function destroy($id)
     {
         //
-		Project::findOrFail($id)->destroy();
+		Project::destroy($id);
 		return self::manage();
     }
 	
