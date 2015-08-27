@@ -19,28 +19,28 @@ Route::get('slug/{slug}', 'projectsController@findBySlug');
 
 Route::group(['prefix'=>'admin'], function(){
 
-	Route::get('/', function () {return redirect('http://google.com');});
+    Route::get('/', function () {return redirect('http://google.com');});
 
-	Route::group(['prefix'=>'projects'], function(){
+    Route::group(['prefix'=>'projects'], function(){
 
-		Route::get('create', ['as' => 'projectCreate', function(){
-			
-			return View::make('projectCreate');
-			
-		}]);
-		
-		Route::post('create', ['as' => 'projectCreate', 'uses' => 'projectsController@create', 'before' => 'csrf']);
-		
-		Route::get('edit/{id}', ['as' => 'projectEdit', 'uses' => 'projectsController@edit']);
-		
-		Route::post('update/{id}', ['as' => 'projectUpdate', 'uses' => 'projectsController@update', 'before' => 'csrf']);
-		
-		Route::get('destroy/{id}', ['as' => 'projectDestory', 'uses' => 'projectsController@destroy']);
-		
-		Route::get('/', ['uses' => 'projectsController@manage', 'as' => 'projectManageList']);
-			
-	});
-	
+        Route::get('create', ['as' => 'projectCreate', function(){
+            
+            return View::make('projectCreate');
+            
+        }]);
+        
+        Route::post('create', ['as' => 'projectCreate', 'uses' => 'projectsController@create', 'before' => 'csrf']);
+        
+        Route::get('edit/{id}', ['as' => 'projectEdit', 'uses' => 'projectsController@edit']);
+        
+        Route::post('update/{id}', ['as' => 'projectUpdate', 'uses' => 'projectsController@update', 'before' => 'csrf']);
+        
+        Route::get('destroy/{id}', ['as' => 'projectDestory', 'uses' => 'projectsController@destroy']);
+        
+        Route::get('/', ['uses' => 'projectsController@manage', 'as' => 'projectManageList']);
+            
+    });
+    
 });
 
 // Authentication routes...
