@@ -48,6 +48,8 @@ Route::group(['prefix'=>'admin'], function(){
         Route::get('change', ['as' => 'settingsChange', 'uses' => 'settingsController@edit']);
         
         Route::get('update', ['as' => 'settingsUpdate', 'uses' => 'settingsController@update']);
+		
+		Route::get('load', ['as' => 'settingsLoad', 'uses' => 'settingsController@load']);
         
     });
     
