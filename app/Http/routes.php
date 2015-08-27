@@ -41,6 +41,16 @@ Route::group(['prefix'=>'admin'], function(){
             
     });
     
+    Route::group("settings", function(){
+        
+        Route::get('/', ['as' => 'settingsList', 'uses' => 'settingsController@index']);
+
+        Route::get('change', ['as' => 'settingsChange', 'uses' => 'settingsController@edit']);
+        
+        Route::get('update', ['as' => 'settingsUpdate', 'uses' => 'settingsController@update']);
+        
+    });
+    
 });
 
 // Authentication routes...
