@@ -1,3 +1,6 @@
+
+	{{var_dump(session('communications'))}}
+
 {!!Form::open(array('url'=>route('projectCreate')))!!}
     {!!Form::label ('name', 'Nazwa projektu: ')!!}
     {!!Form::text ('name')!!}

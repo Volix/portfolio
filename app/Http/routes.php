@@ -13,9 +13,9 @@
 
 Route::get('/', 'projectsController@index');
 
-Route::get('project/{id}', 'projectsController@show');
+Route::get('project/{id}', ['uses' => 'projectsController@show', 'as' => 'projectShow']);
 
-Route::get('slug/{slug}', 'projectsController@findBySlug');
+Route::get('slug/{slug}', ['uses' => 'projectsController@findBySlug', 'as' => 'projectShowBySlug']);
 
 Route::group(['prefix'=>'admin'], function(){
 
@@ -41,6 +41,22 @@ Route::group(['prefix'=>'admin'], function(){
             
     });
     
+	Route::group(['prefix'=>'images'], function(){
+
+        Route::get('upload', ['as' => 'projectCreate', function(){
+            
+            return View::make('projectCreate');
+            
+        }]);
+        
+        Route::post('upload', ['as' => 'imagesCreate', 'uses' => 'imagesController@create', 'before' => 'csrf']);
+        
+        Route::get('destroy/{id}', ['as' => 'imageDestroy', 'uses' => 'images@destroy']);
+        
+        Route::get('/', ['uses' => 'imagesController@index', 'as' => 'imageList']);
+            
+    });
+	
     Route::group(['prefix' => 'settings'], function(){
         
         Route::get('/', ['as' => 'settingsList', 'uses' => 'settingsController@index']);
@@ -63,4 +79,3 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
-

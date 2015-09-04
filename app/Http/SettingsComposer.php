@@ -4,6 +4,7 @@ namespace App\Http\ViewComposers;
 
 use Illuminate\Contracts\View\View;
 use App\Setting;
+use View;
 
 class SettingsComposer
 {
@@ -23,10 +24,10 @@ class SettingsComposer
     public function __construct($settings = Setting:all())
     {
        
-	   // Dependencies automatically resolved by service container...
+       // Dependencies automatically resolved by service container...
         $this->$settings = $settings;
 
-	}
+    }
 
     /**
      * Bind data to the view.
@@ -34,8 +35,12 @@ class SettingsComposer
      * @param  View  $view
      * @return void
      */
-    public function compose(View $view)
+    public function compose($view)
     {
+		$dupa = "dupa";
         $view->with('settings', $this->settings);
+        $view->with('dupa', "dupa");
+		
+		return $view;
     }
 }

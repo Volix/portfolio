@@ -55,7 +55,7 @@ class projectsController extends Controller
         
         $project->save();
         
-        return var_dump($data);
+	return Redirect::route('projectManageList')->with('communications_success', ["Dodano pomyślnie"]);
     }
     
 
@@ -80,7 +80,7 @@ class projectsController extends Controller
     {
         //Return view with the project
         
-        return View::make('projectShow', ['project' => Project::find($id)]);
+        return View::make('projectShow', ['project' => Project::find($id), 'images' => Project::find($id)->images()]);
         
     }
 
@@ -180,9 +180,16 @@ class projectsController extends Controller
         
         }else{
         
-            return View::make('projectCreate', ['communications' => ["Nie odnaleziono żadnego projektu, dodaj jakiś"]]);
+            return Redirect::route('projectCreate')->with('communications_info', ["Nie odnaleziono żadnego projektu, dodaj jakiś"]);
         
         }
         
     }
+	
+	private function images()
+	{
+		//load images for project
+		
+		return $this->hasMany('app/Image');
+	}
 }
