@@ -1,2 +1,1 @@
-
-	{{var_dump($settings)}}
+//currently nothing ;)

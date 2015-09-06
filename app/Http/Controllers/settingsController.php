@@ -18,7 +18,7 @@ class settingsController extends Controller
     public function index()
     {
         //
-		return View::make("settingsList");
+        return View::make("settingsList");
     }
 
     /**

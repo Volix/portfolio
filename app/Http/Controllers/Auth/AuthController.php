@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
+use Input;
+use Redirect;
 use App\User;
 use Validator;
+use Session;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -33,33 +37,61 @@ class AuthController extends Controller
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    public function login()
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
+        if (Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')], Input::get('remember_me'))){
+
+            return Redirect::to("http://google.com");
+
+        }else{
+            
+            return Auth::user();
+            
+        }
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
+    public function logout()
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+        if (Auth::user()){
+
+            //Logout user
+           // Session::flush();
+            Auth::logout();
+            
+            
+            //Return to main page with communication
+            return Redirect::to('/')->with('communication_success', ["Wylogowano pomyślnie"]);
+
+        }else{
+
+            return Redirect::route('login')->with('communication_info', ["Nie zalogowano"]);
+
+        }
+    }
+
+    public function register()
+    {
+
+        $validator = Validator::make(Input::all(), [
+        'name' => 'required|unique:users',
+        'email' => 'required|E-Mail|unique:users',
+        'password' => 'required|confirmed|min:8|case_diff|numbers|letters|symbols'
         ]);
+
+        if (!$validator->fails()){
+
+            $user = new User;
+
+            $user->name = Input::get('name');
+
+            $user->email = Input::get('email');
+
+            $user->password = bcrypt(Input::get('password'));
+
+            $user->save();
+
+        }else{
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
     }
 }

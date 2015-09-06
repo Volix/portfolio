@@ -6,13 +6,13 @@
         <h1>{{$project['name']}}</h1>
     </header>
     <section>
-	<ul class="slideshow">
-	
-	</ul>
+    <ul class="slideshow">
+    
+    </ul>
         {!! $project['description'] !!}
     </section>
     <footer>
         
-	</footer>
+    </footer>
 </article>
 @endsection

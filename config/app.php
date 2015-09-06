@@ -135,11 +135,12 @@ return [
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
+        'Schuppo\PasswordStrength\PasswordStrengthServiceProvider',
         Illuminate\View\ViewServiceProvider::class,
-		'Collective\Html\HtmlServiceProvider',
-		//Illuminate\Contracts\View\Factory::class,
-		App\Providers\viewComposers::class,
-		
+        'Collective\Html\HtmlServiceProvider',
+        //Illuminate\Contracts\View\Factory::class,
+        App\Providers\viewComposers::class,
+        
 
         /*
          * Application Service Providers...
@@ -195,7 +196,7 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-		'Form' => 'Collective\Html\FormFacade',
+        'Form' => 'Collective\Html\FormFacade',
       'Html' => 'Collective\Html\HtmlFacade'
 
     ],

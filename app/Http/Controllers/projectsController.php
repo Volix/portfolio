@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use View;
 use App\Project;
+use App\Image;
 use Input;
 use Redirect;
 use Session;
@@ -25,7 +26,6 @@ class projectsController extends Controller
         
         $projects = Project::all();
         
-        return View::make('projectsList', ["projects"=>$projects]);
     }
 
     /**
@@ -55,7 +55,7 @@ class projectsController extends Controller
         
         $project->save();
         
-	return Redirect::route('projectManageList')->with('communications_success', ["Dodano pomyślnie"]);
+    return Redirect::route('projectManageList')->with('communications_success', ["Dodano pomyślnie"]);
     }
     
 
@@ -185,11 +185,11 @@ class projectsController extends Controller
         }
         
     }
-	
-	private function images()
-	{
-		//load images for project
-		
-		return $this->hasMany('app/Image');
-	}
+    
+    private function images()
+    {
+        //load images for project
+        
+        return $this->hasMany('app/Image');
+    }
 }

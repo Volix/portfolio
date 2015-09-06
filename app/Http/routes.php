@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'projectsController@index');
+Route::get('home', ['as' => 'home', 'uses' => 'projectsController@index']);
 
 Route::get('project/{id}', ['uses' => 'projectsController@show', 'as' => 'projectShow']);
 
@@ -41,7 +42,7 @@ Route::group(['prefix'=>'admin'], function(){
             
     });
     
-	Route::group(['prefix'=>'images'], function(){
+    Route::group(['prefix'=>'images'], function(){
 
         Route::get('upload', ['as' => 'projectCreate', function(){
             
@@ -51,13 +52,13 @@ Route::group(['prefix'=>'admin'], function(){
         
         Route::post('upload', ['as' => 'imagesCreate', 'uses' => 'imagesController@create', 'before' => 'csrf']);
         
-        Route::get('destroy/{id}', ['as' => 'imageDestroy', 'uses' => 'images@destroy']);
+        Route::get('destroy/{id}', ['as' => 'imageDestroy', 'uses' => 'imagesController@destroy']);
         
         Route::get('/', ['uses' => 'imagesController@index', 'as' => 'imageList']);
             
     });
-	
-    Route::group(['prefix' => 'settings'], function(){
+    
+    Route::group(['prefix' => 'settings', 'before' => 'auth'], function(){
         
         Route::get('/', ['as' => 'settingsList', 'uses' => 'settingsController@index']);
 
@@ -72,10 +73,31 @@ Route::group(['prefix'=>'admin'], function(){
 });
 
 // Authentication routes...
-Route::get('auth/login', 'Auth\AuthController@getLogin');
-Route::post('auth/login', 'Auth\AuthController@postLogin');
-Route::get('auth/logout', 'Auth\AuthController@getLogout');
+Route::get('auth/login', ['as' => 'login', function(){
+    return View::make('layouts.master.auth.login');
+}]);
+Route::post('auth/login', ['as' => 'login', 'uses' => 'Auth\AuthController@login']);
+Route::get('auth/logout', ['as' => 'logout' , function() {
+    if (Auth::user()){
+        
+        Auth::logout();
+        Session::flush();
+        return Redirect::to('/')->with('communication_success', ['Wylogowano pomyślnie']);
+    
+    }else{
+        
+        return Redirect::to('login')->with('communication_info', ['Aby się wylogować musisz się zalogować', 'Life is brutal']);
+        
+    }
+}]);
 
 // Registration routes...
-Route::get('auth/register', 'Auth\AuthController@getRegister');
-Route::post('auth/register', 'Auth\AuthController@postRegister');
+Route::get('auth/register', ['as' => 'register', function () {
+    return View::make('layouts.master.auth.register');
+}]);
+Route::post('auth/register', ['as' => 'register', 'uses' =>'Auth\AuthController@register']);
+Route::filter('auth', function() {
+    if (Auth::guest()){
+        return Redirect::route('login');
+    }
+});
