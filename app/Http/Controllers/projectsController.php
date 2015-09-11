@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Image;
 use View;
 use App\Project;
-use App\Image;
+use App\Image as Photo;
 use Input;
 use Redirect;
 use Session;
@@ -37,8 +38,6 @@ class projectsController extends Controller
     {
         //create new Project
         
-        $data = Input::all();
-        
         $project =  new Project;
         
         $project->name = Input::get('name');
@@ -54,7 +53,86 @@ class projectsController extends Controller
         $project->slug = str_replace(' ', '_', Input::get('name'));
         
         $project->save();
-        
+		
+	//	 $extension = Input::file('images')->getClientOriginalExtension(); // getting image extension
+     // $fileName = rand(11111,99999).'.'.$extension; // renameing image
+     // Input::file('images')->move('uploads', $fileName);
+		
+		
+		if (Input::hasFile('images')){
+	//	die('dupa4');
+			ini_set('memory_limit','32M');
+	//	die('dupa5');
+			foreach(Input::file('images') as $image){
+				//die('8y88');
+				//return var_dump($image);
+				$time = time();
+				$extension = $image->getClientOriginalExtension();
+				$filename = $image->getClientOriginalName();
+				
+				$image->move('uploads\\'.$time.'\\original\\original', $filename);
+				
+		//	 var_dump(public_path('uploads\\'.$time.'\\'.$filename));
+		//	var_dump(url('uploads\\'.$time.'\\'.$filename));
+				
+				$current_image = Image::make(url('uploads/'.$time.'/original/original/'.$filename));
+			
+				$width = $current_image->width($image);
+				$heigth = $current_image->height($image);
+				
+				$project_id = $project->id;
+				
+			
+				var_dump($height);
+				
+				if ($width >= 300 || $height >= 300){
+				
+				die('lbb');
+					$current_image->resize(300, 300)->save(public_path('content\\'.$time.'\\'.'300x300'.'\\original\\'.$image->getClientOriginalName));
+			//		$current_image->resize(300, 300)->greyscale()->save('content\\'.$time.'\\'.'300x300'.'grayscale\\'.$image->getClientOriginalName);
+
+				}
+				
+			/*	if ($width >= 800 || $height >= 600){
+				
+					$current_image->resize(800, 600)->save('/content/'.$time.'/'.'800x600'.'/original/'.$image);
+					$current_image->resize(800, 600)->greyscale()->save('/content/'.$time.'/'.'800x600'.'/greyscale/'.$image);
+
+				}
+				
+				if ($width >= 1024 || $height >= 768){
+				
+					$current_image->save('/content/'.$time.'/'.'1024x768'.'/original/'.$image);
+					$current_image->resize(1024, 768)->greyscale()->save('/content/'.$time.'/'.'1024x768'.'/greyscale/'.$image);
+
+				}
+				*/				
+			//		$current_image->resize($width, $height)->save('content/'.$time.'/'.'original'.'/original/'.$image);
+			//	$current_image->resize($width, $height)->greyscale()->save('/content/'.$time.'/'.'original'.'/greyscale/'.$image);
+		
+			
+			
+			$photo = Photo;
+			
+			$photo->name = $image->getClientOriginalName();
+			$photo->extension = $image->getClientExtension();
+			$photo->timeAdded = $time;
+			
+			$photo->save();
+			
+			$project->images()->attach($photo->id);
+		
+	
+			}
+			die('lol');
+	
+		}else{
+				die('dupa2222');
+			}
+	
+	
+	return var_dump(Input::all());
+	
     return Redirect::route('projectManageList')->with('communications_success', ["Dodano pomyślnie"]);
     }
     
@@ -190,6 +268,6 @@ class projectsController extends Controller
     {
         //load images for project
         
-        return $this->hasMany('app/Image');
+        return $this->BelongsToMany('app/Image', 'projects_images');
     }
 }

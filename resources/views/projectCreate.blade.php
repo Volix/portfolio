@@ -1,7 +1,4 @@
-
-    {{var_dump(session('communications'))}}
-
-{!!Form::open(array('url'=>route('projectCreate')))!!}
+{!!Form::open(array('url'=>route('projectCreate'), 'files'=>true))!!}
     {!!Form::label ('name', 'Nazwa projektu: ')!!}
     {!!Form::text ('name')!!}
     {!!Form::label ('short_description', 'Krótki opis: ')!!}
@@ -12,5 +9,8 @@
     {!!Form::url ('project_url')!!}
     {!!Form::label ('made_at', 'Data wykonania: ')!!}
     {!!Form::date ('made_at')!!}
+	{!!Form::label ('distinctive_image', 'Grafika wyróżniająca')!!}
+	{!!Form::label ('images', 'Pozostałe grafiki')!!}
+		{!!Form::file('images[]', ['multiple'=>'multiple', 'class'=>'dropzone'])!!}
     {!!Form::submit ('Dodaj')!!}
 {!!Form::close()!!}

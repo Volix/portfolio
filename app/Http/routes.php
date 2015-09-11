@@ -30,7 +30,7 @@ Route::group(['prefix'=>'admin'], function(){
             
         }]);
         
-        Route::post('create', ['as' => 'projectCreate', 'uses' => 'projectsController@create', 'before' => 'csrf']);
+        Route::post('create', ['as' => 'projectCreate', 'uses' => 'projectsController@create']);
         
         Route::get('edit/{id}', ['as' => 'projectEdit', 'uses' => 'projectsController@edit']);
         
@@ -44,7 +44,7 @@ Route::group(['prefix'=>'admin'], function(){
     
     Route::group(['prefix'=>'images'], function(){
 
-        Route::get('upload', ['as' => 'projectCreate', function(){
+        Route::get('upload', ['as' => 'uploadImage', function(){
             
             return View::make('projectCreate');
             
