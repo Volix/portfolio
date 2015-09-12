@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Europe/Warsaw',
 
     /*
     |--------------------------------------------------------------------------
@@ -141,7 +141,7 @@ return [
         //Illuminate\Contracts\View\Factory::class,
         App\Providers\viewComposers::class,
 		'Intervention\Image\ImageServiceProvider',
-        
+
 
         /*
          * Application Service Providers...
