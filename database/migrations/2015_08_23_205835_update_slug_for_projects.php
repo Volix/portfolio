@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class UpdateSlugForProjects extends Migration
@@ -13,9 +12,9 @@ class UpdateSlugForProjects extends Migration
     public function up()
     {
         //Add column slug to projects
-		Schema::table("projects", function($table) {
-			$table->string("slug");
-		});
+        Schema::table("projects", function ($table) {
+            $table->string("slug");
+        });
     }
 
     /**
@@ -26,8 +25,8 @@ class UpdateSlugForProjects extends Migration
     public function down()
     {
         //Delete column slug
-		Schema::table("projects", function($table)  {
-			$table->dropColumn('slug');
-		});
+        Schema::table("projects", function ($table) {
+            $table->dropColumn('slug');
+        });
     }
 }

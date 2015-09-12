@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class ProjectsImages extends Migration
@@ -13,10 +12,10 @@ class ProjectsImages extends Migration
     public function up()
     {
         //Create cross table
-		Schema::create('projects_images', function($table){
-			$table->integer('project_id');
-			$table->integer('image_id');
-		});
+        Schema::create('projects_images', function ($table) {
+            $table->integer('project_id');
+            $table->integer('image_id');
+        });
     }
 
     /**
@@ -27,6 +26,6 @@ class ProjectsImages extends Migration
     public function down()
     {
         //drop table
-		Schema::drop('projects_images');
+        Schema::drop('projects_images');
     }
 }

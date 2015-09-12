@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateTableProjectsDistinctiveImages extends Migration
@@ -13,10 +12,10 @@ class CreateTableProjectsDistinctiveImages extends Migration
     public function up()
     {
         //Create cross table projects with distinctive image
-        Schema::create("project_distinctive_images", function($table){
-                $table->integer("project_id")->unique();
-                $table->integer("image_id")->unique();
-            });
+        Schema::create("project_distinctive_images", function ($table) {
+            $table->integer("project_id")->unique();
+            $table->integer("image_id")->unique();
+        });
     }
 
     /**

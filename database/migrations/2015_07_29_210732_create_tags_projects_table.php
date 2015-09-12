@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateTagsProjectsTable extends Migration
@@ -13,10 +12,10 @@ class CreateTagsProjectsTable extends Migration
     public function up()
     {
         //Create cross table projects with tags
-        Schema::create("projects_tags", function ($table){
-                $table->integer("project_id");
-                $table->integer("tag_id");
-            });
+        Schema::create("projects_tags", function ($table) {
+            $table->integer("project_id");
+            $table->integer("tag_id");
+        });
     }
 
     /**

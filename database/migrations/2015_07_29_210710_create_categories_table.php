@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateCategoriesTable extends Migration
@@ -13,11 +12,11 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         //Create  table categories
-        Schema::create("categories", function($table){
-                $table->increments("id");
-                $table->string("name");
-                $table->string("slug");
-            });
+        Schema::create("categories", function ($table) {
+            $table->increments("id");
+            $table->string("name");
+            $table->string("slug");
+        });
     }
 
     /**

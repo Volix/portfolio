@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateTableImages extends Migration
@@ -13,12 +12,12 @@ class CreateTableImages extends Migration
     public function up()
     {
         //Create table images
-         Schema::create("images", function ($table){
+        Schema::create("images", function ($table) {
             $table->increments("id");
             $table->string("extension");
             $table->string("name");
             $table->timestamps();
-            });
+        });
     }
 
     /**
