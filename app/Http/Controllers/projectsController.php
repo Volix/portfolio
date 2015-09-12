@@ -15,14 +15,12 @@ use View;
 class projectsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Return list of all projects.
      *
      * @return Response
      */
     public function index()
     {
-        //Return list of all projects
-
         $projects = Project::all();
 
     }
@@ -89,40 +87,29 @@ class projectsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * Show specified project.
      *
      * @param  int  $id
-     * @return Response
+     * @return View
      */
     public function show($id)
     {
-        //Return view with the project
-
-        return View::make('projectShow', ['project' => Project::find($id), 'images' => Project::find($id)->images()]);
+        return View::make('projectShow', [
+            'project' => Project::find($id),
+        ]);
 
     }
 
     /**
      * Find projects by slug.
      *
-     * @param  str  $slug
-     * @return int $id
+     * @param  string  $slug
+     * @return projectsController
      */
     public function findBySlug($slug)
     {
         $id = Project::where('slug', '=', $slug)->firstOrFail()['id'];
-        return self::show($id);
+        return $this->show($id);
     }
 
     /**
@@ -133,7 +120,7 @@ class projectsController extends Controller
      */
     public function edit($id)
     {
-        //Find project by id
+        // Find project by id
         $project = Project::find($id);
 
         if ($project) {
@@ -144,7 +131,7 @@ class projectsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the project.
      *
      * @param  Request  $request
      * @param  int  $id
@@ -152,8 +139,6 @@ class projectsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //update Project
-
         $rules = array(
             'name' => 'required',
             'made_at' => 'required|date',
@@ -167,20 +152,18 @@ class projectsController extends Controller
 
         $project->short_description = Input::get('short_description');
 
-        strlen(Input::get('description')) > 0 ? $project->description = Input::get('description') : $project->description = Input::get('short_description');
+        $project->description = strlen(Input::get('description')) > 0 ? Input::get('description') : Input::get('short_description');
 
         $project->made_at = Input::get('made_at');
 
         $project->project_url = Input::get('project_url');
 
-        $project->slug = str_replace(' ', '_', Input::get('name'));
+        $project->slug = str_slug(Input::get('name');
 
         $project->save();
 
-        // redirect
-        Session::flash('message', 'Successfully updated nerd!');
-        return View::make('projectsManageList', ['projects' => Project::all()]);
-
+        // Redirect
+        return Redirect::route('projectManageList')->with('message', 'Successfully updated nerd!');
     }
 
     /**
@@ -191,33 +174,21 @@ class projectsController extends Controller
      */
     public function destroy($id)
     {
-        //
         Project::destroy($id);
         return Redirect::route('projectManageList');
     }
 
+    /**
+     * Manage projects from dashboard
+     */
     public function manage()
     {
-        //Manage projects from dashboard
-
         $projects = Project::all();
 
         if (count($projects) > 0) {
-
             return View::make('projectsManageList', ['projects' => Project::all()]);
-
         } else {
-
             return Redirect::route('projectCreate')->with('communications_info', ["Nie odnaleziono żadnego projektu, dodaj jakiś"]);
-
         }
-
-    }
-
-    private function images()
-    {
-        //load images for project
-
-        return $this->BelongsToMany('app/Image', 'projects_images');
     }
 }
